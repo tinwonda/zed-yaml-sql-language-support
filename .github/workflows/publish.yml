@@ -1,0 +1,54 @@
+name: Build and publish Zed extension
+
+# Trigger on semantic version tags like v1.2.3
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Determine tag
+        id: tag
+        run: echo "tag=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+
+      - name: Create extension zip
+        id: package
+        run: |
+          TAG=${{ steps.tag.outputs.tag }}
+          ZIP_NAME="yaml-sql-${TAG}.zip"
+          zip -r ${ZIP_NAME} . -x "**/.git/**" "**/.github/**"
+          echo "zip_name=${ZIP_NAME}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          release_name: Zed extension ${{ steps.tag.outputs.tag }}
+          body: |
+            Automated release for tag ${{ steps.tag.outputs.tag }} — packaged Zed extension.
+          draft: false
+          prerelease: false
+
+      - name: Upload extension zip to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.package.outputs.zip_name }}
+          asset_name: ${{ steps.package.outputs.zip_name }}
+          asset_content_type: application/zip
+
+      - name: Print release asset info
+        run: |
+          echo "Uploaded ${{ steps.package.outputs.zip_name }} to release ${{ steps.tag.outputs.tag }}"
