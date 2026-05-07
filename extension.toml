@@ -1,0 +1,11 @@
+id = "yaml-sql"
+name = "YAML SQL"
+version = "0.0.1"
+schema_version = 1
+authors = ["Tin Trinh"]
+description = "YAML support with SQL syntax injections for annotated or sql-named values."
+repository = "https://github.com/your-name/yaml-sql"
+
+[grammars.sql]
+repository = "https://github.com/DerekStride/tree-sitter-sql"
+commit = "4a99c73f5384f2be10adc55208c84d95a7eb1137"
