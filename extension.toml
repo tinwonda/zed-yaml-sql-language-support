@@ -8,7 +8,7 @@ repository = "https://github.com/tinwonda/zed-yaml-sql-language-support"
 
 [grammars.yaml]
 repository = "https://github.com/zed-industries/tree-sitter-yaml"
-commit = "f545a41f57502e1b5ddf2a6668896c1b0620f930"
+commit = "baff0b51c64ef6a1fb1f8390f3ad6015b83ec13a"
 
 [grammars.sql]
 repository = "https://github.com/DerekStride/tree-sitter-sql"
