@@ -2,7 +2,7 @@ id = "yaml-sql"
 name = "YAML SQL"
 version = "0.0.1"
 schema_version = 1
-authors = ["Tin Trinh"]
+authors = ["Tin Trinh <hungtin.bk12@gmail.com>"]
 description = "YAML support with SQL syntax injections for annotated or sql-named values."
 repository = "https://github.com/tinwonda/zed-yaml-sql-language-support"
 
