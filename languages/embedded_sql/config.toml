@@ -1,9 +1,0 @@
-name = "Embedded SQL"
-grammar = "sql"
-path_suffixes = ["embedded_sql", "embedded-sql"]
-line_comments = ["-- "]
-brackets = [
-    { start = "(", end = ")", close = true, newline = false },
-    { start = "'", end = "'", close = true, newline = false },
-    { start = "\"", end = "\"", close = true, newline = false },
-]
